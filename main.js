@@ -85,18 +85,5 @@ function playRound(round) {
     const winner = checkWinner(playerSelection, computerSelection);
     console.log(winner);
     console.log(round + 1);
-    //logRound(playerSelection, computerSelection, winner, round);
-
+    
 }
-//function logRound(getPlayerSelection, getComputerChoice, winner, round) {
-    //console.log("Round: ", round + 1);
-    //console.log('Player Choice: ', getPlayerSelection);
-    //console.log('ComputerChoice: ', getComputerChoice);
-    //if (winner === 'Tie') {
-       // console.log(winner);
-   // } else if (winner === 'Computer') {
-   // console.log("Computer Won the Round");
-   // } else {
-   // console.log('Player Won the round');
-    //}
-//}
