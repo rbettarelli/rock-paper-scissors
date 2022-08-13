@@ -13,13 +13,7 @@ var compScore = 0
 var userScore = 0
 
 
-//userScoreTxt.textContent = '0'
-//compScoreTxt.textContent = '0'
 
-//const buttons = document.querySelectorAll('button');
-//buttons.forEach((button) => {
-//   button.addEventListener('click', getPlayerChoice);
-//});
 
 
 getPlayerChoice();
@@ -56,17 +50,17 @@ function roundCount(player, comp) {
 
         roundWinner.textContent = ("You win the Game");
 
-        resetGame();
+        toggleHide()
 
     } else if (comp === 5) {
 
         roundWinner.textContent = ("You lost the game");
-        resetGame();
+        toggleHide()
 
     } else if (player === 5 || comp === 5) {
        
         roundWinner.textContent = ("TIE")
-        resetGame();
+        toggleHide()
 
     }
 }
@@ -110,30 +104,27 @@ function playRound(user, comp) {
         return 'player';
     }
 
-
-
 }
 
 function toggleHide() {
 
     playerButton.classList.toggle('hide');
     btnReset.classList.toggle('hide');
-
-
+   
 
 }
 
 function resetGame() {
 
-    toggleHide();
-    compScore = 0
+    toggleHide()
     userScore = 0
-    
-    
+    compScore = 0
 
-  
-
-    }
+    userScoreTxt.textContent = '0'
+    compScoreTxt.textContent = '0'
+   
+ 
+ }
 
 
 btnReset.addEventListener('click', resetGame)
