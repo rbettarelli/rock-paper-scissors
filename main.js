@@ -1,89 +1,140 @@
+
+document.querySelector('.userChoice');
+const playerButton = document.querySelector('.playerChoice')
+const buttonChoice = document.querySelectorAll('.btn-choice')
+const userChoice = document.querySelector('.userChoice');
+const compScoreTxt = document.querySelector('#compScore');
+const userScoreTxt = document.querySelector('#userScore');
+const roundWinner = document.querySelector('#roundWinner');
+const btnReset = document.querySelector('.reset')
+const btnHidden = document.querySelector('.hidden')
 const choices = ["rock", "paper", "scissor"];
-let compScore = 0;
-let userScore = 0;
-let again = false;
+var compScore = 0
+var userScore = 0
 
 
-function game() {
+//userScoreTxt.textContent = '0'
+//compScoreTxt.textContent = '0'
 
-    for (i = 0; i < 5; i++) {
+//const buttons = document.querySelectorAll('button');
+//buttons.forEach((button) => {
+//   button.addEventListener('click', getPlayerChoice);
+//});
 
 
-        playRound(i);
+getPlayerChoice();
 
+
+function getPlayerChoice() {
+
+    for (btn of buttonChoice) {
+        btn.addEventListener('click', (e) => {
+            let playerChoice = e.currentTarget.id;
+            let compChoice = getComputerChoice();
+            userChoice.innerHTML = `<img src='img/${e.currentTarget.id}.png 'class='mark'>`;
+            playRound(playerChoice, compChoice);
+            compScoreTxt.innerHTML = `${compScore}`;
+            userScoreTxt.innerHTML = `${userScore}`;
+            roundCount(userScore, compScore);
+            console.log('Player Score ' + userScore + ' Compu Score' + compScore);
+
+
+
+        })
     }
 
-    document.querySelector("button").textContent = "Play new game";
-    win();
+
+
+
 
 }
 
-function win() {
+function roundCount(player, comp) {
 
-    if (compScore > userScore) {
-        alert('Computer Win');
-        console.log('Computer Win')
-    } else if (compScore == userScore) {
-        alert('TIE');
-        console.log('TIE')
-    } else {
-        console.log("You WIN")
+
+    if (player === 5) {
+
+        roundWinner.textContent = ("You win the Game");
+
+        resetGame();
+
+    } else if (comp === 5) {
+
+        roundWinner.textContent = ("You lost the game");
+        resetGame();
+
+    } else if (player === 5 || comp === 5) {
+       
+        roundWinner.textContent = ("TIE")
+        resetGame();
+
     }
 }
 
-function getPlayerSelection() {
-
-    let input = prompt("Type Rock, Paper, or Scissors");
-    input = input.toLowerCase();
-    let check = validateInput(input);
-    while (check == false) {
-        input = prompt('Check False');
-        input = input.toLowerCase();
-        check = validateInput(input);
-    }
-
-    console.log('Player Choice: ', input);
-    return input;
-}
-function validateInput(choice) {
-
-    return choices.includes(choice)
-
-
-}
 function getComputerChoice() {
-
-    let comp = choices[Math.floor(Math.random() * choices.length)];
-    console.log('Computer Choice: ', comp);
+    const comp = choices[Math.floor(Math.random() * choices.length)];
     return comp;
-
 }
 
-function checkWinner(user, comp) {
+
+
+
+function playRound(user, comp) {
+
+    console.log(comp, user)
+
+    const showCompChoice = document.querySelector('.compChoice').innerHTML = `<img src='img/${comp}.png'class='mark'>`;
+
     if (comp === user) {
+        userScore++;
+        compScore++;
+        roundWinner.textContent = 'TIE';
+
+        showCompChoice
         return 'Tie';
     }
     else if (
         (comp === 'rock' && user === 'scissor') ||
         (comp === 'paper' && user === 'rock') ||
         (comp === 'scissor' && user === 'paper')) {
+        showCompChoice;
         compScore++;
-        return "Computer";
+        roundWinner.textContent = "Computer win";
+
+        return "computer";
     }
     else {
         userScore++;
-        return 'Player';
+        roundWinner.textContent = 'You win';
+
+        return 'player';
     }
 
+
+
 }
 
+function toggleHide() {
 
-function playRound(round) {
+    playerButton.classList.toggle('hide');
+    btnReset.classList.toggle('hide');
 
-    const playerSelection = getPlayerSelection();
-    const computerSelection = getComputerChoice();
-    const winner = checkWinner(playerSelection, computerSelection);
-    console.log(winner);
-    console.log(round + 1);
+
+
+}
+
+function resetGame() {
+
+    toggleHide();
+    compScore = 0
+    userScore = 0
     
-}
+    
+
+  
+
+    }
+
+
+btnReset.addEventListener('click', resetGame)
+
